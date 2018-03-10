@@ -1,0 +1,10 @@
+publish:
+    provider: github
+    token: 
+appId: com.awesomeidea
+files:
+    - build/**/*
+    - node_modules/**/*"
+directories:
+    buildResources: assets
+productName: AwesomeIdea

@@ -2,15 +2,31 @@
   "name": "awesome-idea",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
+  "main": "public/electron.js",
+  "scripts": {
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"yarn watch-css\" \"export BROWSER=none && yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack-mac": "build --em.main=build/electron.js -mwl -c electron-builder.yml",
+    "electron-pack-win": "build --em.main=build/electron.js --win --ia32 -c electron-builder.yml",
+    "electron-pack-linux": "build --em.main=build/electron.js --linux deb tar.xz -c electron-builder.yml",
+    "preelectron-pack": "yarn build && yarn build-css"
+  },
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "electron": "^1.8.3",
+    "electron-builder": "^20.4.1",
+    "node-sass-chokidar": "^1.1.0",
+    "wait-on": "^2.1.0"
   }
 }
